@@ -19,4 +19,5 @@ class OrderAdmin(nested_admin.NestedModelAdmin):
 admin.site.register(Voucher)
 admin.site.register(GiftCard)
 admin.site.register(OrderEvent)
-admin.site.registe(Order, OrderAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(Sale)
