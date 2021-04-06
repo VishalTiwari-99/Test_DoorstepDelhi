@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('webtraffic/', include('webtraffic.urls')),
     path('store/',include('store.urls')),
+    path('shop/', include('shop.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

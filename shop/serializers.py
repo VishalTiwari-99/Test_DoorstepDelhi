@@ -6,11 +6,12 @@ from .models import Order, OrderLine, OrderEvent, Invoice, GiftCard, Voucher, Sa
 
 class OrderSerializers(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault)
-    tracking_client_id = serializers.SerializerMethodField()
+    created = serializers.DateTimeField(read_only=True)
     class Meta:
         model = Order
         fields = [
-            'id', 
+            'id',
+            'created',
             'status', 
             'user', 
             'tracking_client_id', 
@@ -20,11 +21,12 @@ class OrderSerializers(serializers.ModelSerializer):
             'shipping_price', 
             'total_net_amount', 
             'undiscounted_amount',
+            'voucher',
+            'gift_cards',
+            'display_gross_price',
+            'customer_note',
         ]
-        read_only_fields = ('id','tracking_client_id',)
-    
-    def get_tracking_client_id(self,obj):
-        pass
+        read_only_fields = ('id','tracking_client_id',)        
 
 
 
@@ -43,14 +45,15 @@ class OrderLineSerializers(serializers.ModelSerializer):
 
 class OrderEventSerializers(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+    date = serializers.DateTimeField(read_only=True)
     
     class Meta:
         model = OrderEvent
         fields = [
+            'user',
             'date',
             'type',
             'order',
-            'user',
         ]
 
 
@@ -67,7 +70,8 @@ class InvoiceSerializers(serializers.ModelSerializer):
 
 
 class GiftCardSerializers(serializers.ModelSerializer):
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault)    
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault)
+    created = serializers.DateTimeField(read_only=True)
     class Meta:
         model = GiftCard
         fields = [
@@ -99,6 +103,9 @@ class VoucherSerializers(serializers.ModelSerializer):
             'apply_once_per_customer',
             'discount_value_type',
             'min_checkout_items_quantity',
+            'products',
+            'collections',
+            'categories',
         ]
 
 
