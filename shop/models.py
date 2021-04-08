@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
 from django.core.validators import MinValueValidator
+from django.db.models.signals import post_save
 
 from shop.choices import order_status_choices, order_event_type_choices, voucher_type_choices, discout_value_type_choices
 
@@ -58,6 +59,19 @@ class Order(models.Model):
 
     display_gross_prices = models.BooleanField(default=True)
     customer_note = models.TextField(blank=True, default="")
+
+
+def generating_clientID(sender, instance, **kwargs):
+    date = str(instance.created)
+    clientID = ''
+    for char in date:
+        if char in ['-',' ',':','.','+']:
+            continue
+        clientID += char
+    clientID = clientID[ :-7]
+    instance.tracking_client_id = clientID
+
+post_save.connect(generating_clientID, sender=Order)
 
 
 class OrderLine(models.Model):

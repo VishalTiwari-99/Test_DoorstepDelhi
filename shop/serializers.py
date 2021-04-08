@@ -28,7 +28,8 @@ class OrderSerializers(serializers.ModelSerializer):
         ]
         read_only_fields = ('id','tracking_client_id',)        
 
-
+class OrderListSerializers(serializers.ModelSerializer):
+    pass
 
 
 class OrderLineSerializers(serializers.ModelSerializer):
@@ -86,6 +87,9 @@ class GiftCardSerializers(serializers.ModelSerializer):
             'current_balance_amount', 
         ]
 
+class GiftCardListSerializers(serializers.ModelSerializer):
+    pass
+
 
 
 class VoucherSerializers(serializers.ModelSerializer):
@@ -108,6 +112,8 @@ class VoucherSerializers(serializers.ModelSerializer):
             'categories',
         ]
 
+class VoucherListSerializers(serializers.ModelSerializer):
+    pass
 
 class SaleSerializers(serializers.ModelSerializer):
     class Meta:
